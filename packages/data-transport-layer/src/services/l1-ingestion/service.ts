@@ -27,7 +27,14 @@ interface L1IngestionMetrics {
   missingElementCount: Counter<string>
   unhandledErrorCount: Counter<string>
 }
-
+interface LastContractAddress {
+  address: string
+  blockNumber: number
+}
+interface ContractAddresses {
+  CanonicalTransactionChain: LastContractAddress | false
+  StateCommitmentChain: LastContractAddress | false
+}
 const registerMetrics = ({
   client,
   registry,
@@ -64,7 +71,7 @@ const optionSettings = {
     validate: validators.isAddress,
   },
   confirmations: {
-    default: 35,
+    default: 12,
     validate: validators.isInteger,
   },
   pollingInterval: {
@@ -72,7 +79,7 @@ const optionSettings = {
     validate: validators.isInteger,
   },
   logsPerPollingInterval: {
-    default: 2000,
+    default: 500,
     validate: validators.isInteger,
   },
   dangerouslyCatchAllErrors: {
@@ -101,6 +108,7 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
     contracts: OptimismContracts
     l1RpcProvider: StaticJsonRpcProvider
     startingL1BlockNumber: number
+    contractAddress: ContractAddresses
   } = {} as any
 
   protected async _init(): Promise<void> {
@@ -173,6 +181,10 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
       await this.state.contracts.CanonicalTransactionChain.getTotalElements()
     if (totalElements > 0) {
       await this.state.db.putHighestL2BlockNumber(totalElements - 1)
+    }
+    this.state.contractAddress = {
+      CanonicalTransactionChain: false,
+      StateCommitmentChain: false,
     }
   }
 
@@ -353,8 +365,9 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
     let l1BlockRangeStart = fromL1Block
     for (const addressSetEvent of addressSetEvents) {
       eventRanges.push({
-        address: await this._getContractAddressAtBlock(
+        address: await this._getContractAddressBetweenBlockRange(
           contractName,
+          l1BlockRangeStart,
           addressSetEvent.blockNumber
         ),
         fromBlock: l1BlockRangeStart,
@@ -363,13 +376,27 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
 
       l1BlockRangeStart = addressSetEvent.blockNumber
     }
-
     // Add one more range to get us to the end of the user-provided block range.
-    eventRanges.push({
-      address: await this._getContractAddressAtBlock(contractName, toL1Block),
-      fromBlock: l1BlockRangeStart,
-      toBlock: toL1Block,
-    })
+    if (addressSetEvents.length > 0) {
+      eventRanges.push({
+        address: await this._getContractAddressBetweenBlockRange(
+          contractName,
+          l1BlockRangeStart,
+          toL1Block
+        ),
+        fromBlock: l1BlockRangeStart,
+        toBlock: toL1Block,
+      })
+    } else {
+      eventRanges.push({
+        address: await this._getContractAddressAtBlock(
+          contractName,
+          fromL1Block
+        ),
+        fromBlock: l1BlockRangeStart,
+        toBlock: toL1Block,
+      })
+    }
 
     for (const eventRange of eventRanges) {
       // Find all relevant events within the range.
@@ -422,20 +449,79 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
     contractName: string,
     blockNumber: number
   ): Promise<string> {
+    let startingBlockNumber: number
+    if (!this.state.contractAddress[contractName]) {
+      //get last contract address from start
+      startingBlockNumber = this.state.startingL1BlockNumber
+    } else {
+      startingBlockNumber = this.state.contractAddress[contractName].blockNumber
+    }
+    let events: ethers.Event[] = []
+    const blockInterval = 1000
+    while (startingBlockNumber < blockNumber) {
+      events = events.concat(
+        await this.state.contracts.Lib_AddressManager.queryFilter(
+          this.state.contracts.Lib_AddressManager.filters.AddressSet(
+            contractName
+          ),
+          startingBlockNumber,
+          Math.min(startingBlockNumber + blockInterval - 1, blockNumber)
+        )
+      )
+      startingBlockNumber += blockInterval
+    }
+    // const events = await this.state.contracts.Lib_AddressManager.queryFilter(
+    //   this.state.contracts.Lib_AddressManager.filters.AddressSet(contractName),
+    //   this.state.startingL1BlockNumber,
+    //   blockNumber
+    // )
+
+    if (events.length > 0) {
+      this.state.contractAddress[contractName] = {
+        address: events[events.length - 1].args._newAddress,
+        blockNumber,
+      }
+      return events[events.length - 1].args._newAddress
+    } else {
+      if (!this.state.contractAddress[contractName]) {
+        // Address wasn't set before this.
+        return constants.AddressZero
+      } else {
+        this.state.contractAddress[contractName].blockNumber = blockNumber
+        return this.state.contractAddress[contractName].address
+      }
+    }
+  }
+  /**
+   * Gets the address of a contract at a particular block range in the past.
+   *
+   * @param contractName Name of the contract to get an address for.
+   * @param fromBlock Block at which to get an address.
+   * @param toBlock Block at which to get an address.
+   * @return Contract address.
+   */
+  private async _getContractAddressBetweenBlockRange(
+    contractName: string,
+    fromBlock: number,
+    toBlock: number
+  ): Promise<string> {
     const events = await this.state.contracts.Lib_AddressManager.queryFilter(
       this.state.contracts.Lib_AddressManager.filters.AddressSet(contractName),
-      this.state.startingL1BlockNumber,
-      blockNumber
+      fromBlock,
+      toBlock
     )
 
     if (events.length > 0) {
       return events[events.length - 1].args._newAddress
     } else {
-      // Address wasn't set before this.
-      return constants.AddressZero
+      if (!this.state.contractAddress[contractName]) {
+        // Address wasn't set before this.
+        return constants.AddressZero
+      } else {
+        return this.state.contractAddress[contractName].address
+      }
     }
   }
-
   private async _findStartingL1BlockNumber(): Promise<number> {
     const currentL1Block = await this.state.l1RpcProvider.getBlockNumber()
 
@@ -443,11 +529,11 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
       return this.options.ctcDeploymentHeight
     }
 
-    for (let i = 0; i < currentL1Block; i += 1000000) {
+    for (let i = 0; i < currentL1Block; i += 5000) {
       const events = await this.state.contracts.Lib_AddressManager.queryFilter(
         this.state.contracts.Lib_AddressManager.filters.OwnershipTransferred(),
         i,
-        Math.min(i + 1000000, currentL1Block)
+        Math.min(i + 5000, currentL1Block)
       )
 
       if (events.length > 0) {

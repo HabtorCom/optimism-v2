@@ -54,6 +54,12 @@ task('deploy')
     types.string
   )
   .addOptionalParam(
+    'ovmRelayerAddress',
+    'Address of the message relayer. Must be provided or this deployment will fail.',
+    undefined,
+    types.string
+  )
+  .addOptionalParam(
     'ovmProposerAddress',
     'Address of the account that will propose state roots. Must be provided or this deployment will fail.',
     undefined,
@@ -81,6 +87,7 @@ task('deploy')
     }
 
     validateAddressArg('ovmSequencerAddress')
+    validateAddressArg('ovmRelayerAddress')
     validateAddressArg('ovmProposerAddress')
     validateAddressArg('ovmAddressManagerOwner')
 
