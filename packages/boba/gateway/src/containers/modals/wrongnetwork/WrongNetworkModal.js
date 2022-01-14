@@ -45,9 +45,9 @@ function WrongNetworkModal ({ open, onClose }) {
   const networkLayer = store.getState().setup.netLayer
 
   /*
-    This is fired if the internal setting of the gateway does not match the 
-    MetaMask configuration. There are multiple networks (e.g. mainent and rinkeby), 
-    and multiple layers, e.g. L1 and L2 
+    This is fired if the internal setting of the gateway does not match the
+    MetaMask configuration. There are multiple networks (e.g. mainent and testnet),
+    and multiple layers, e.g. L1 and L2
   */
 
   console.log("nw:",nw)
@@ -98,7 +98,7 @@ function WrongNetworkModal ({ open, onClose }) {
       </Button>
 
       <Typography variant="body2" style={{margin: 0, padding: 0, paddingTop: '60px'}}>
-        Or, you can change manually, by going to MetaMask and 
+        Or, you can change manually, by going to MetaMask and
         clicking in the top bar.
       </Typography>
 

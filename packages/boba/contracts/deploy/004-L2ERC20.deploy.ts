@@ -3,10 +3,10 @@ import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory, utils } from 'ethers'
 import chalk from 'chalk'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import L1ERC20Json from '../artifacts/contracts/test-helpers/L1ERC20.sol/L1ERC20.json'
-import L1BobaJson from '../artifacts/contracts/DAO/governance-token/BOBA.sol/BOBA.json'
+import L1HabtorJson from '../artifacts/contracts/DAO/governance-token/HABTOR.sol/HABTOR.json'
 import L2GovernanceERC20Json from '../artifacts/contracts/standards/L2GovernanceERC20.sol/L2GovernanceERC20.json'
 import L1LiquidityPoolJson from '../artifacts/contracts/LP/L1LiquidityPool.sol/L1LiquidityPool.json'
 import L2LiquidityPoolJson from '../artifacts/contracts/LP/L2LiquidityPool.sol/L2LiquidityPool.json'
@@ -14,8 +14,8 @@ import preSupportedTokens from '../preSupportedTokens.json'
 
 let Factory__L1ERC20: ContractFactory
 let Factory__L2ERC20: ContractFactory
-let Factory__L1Boba: ContractFactory
-let Factory__L2Boba: ContractFactory
+let Factory__L1Habtor: ContractFactory
+let Factory__L2Habtor: ContractFactory
 
 let L1ERC20: Contract
 let L2ERC20: Contract
@@ -38,9 +38,9 @@ const deployFn: DeployFunction = async (hre) => {
     (hre as any).deployConfig.deployer_l1
   )
 
-  Factory__L1Boba = new ContractFactory(
-    L1BobaJson.abi,
-    L1BobaJson.bytecode,
+  Factory__L1Habtor = new ContractFactory(
+    L1HabtorJson.abi,
+    L1HabtorJson.bytecode,
     (hre as any).deployConfig.deployer_l1
   )
 
@@ -49,7 +49,7 @@ const deployFn: DeployFunction = async (hre) => {
     (hre as any).deployConfig.deployer_l2
   )
 
-  Factory__L2Boba = new ContractFactory(
+  Factory__L2Habtor = new ContractFactory(
     L2GovernanceERC20Json.abi,
     L2GovernanceERC20Json.bytecode,
     (hre as any).deployConfig.deployer_l2
@@ -59,6 +59,13 @@ const deployFn: DeployFunction = async (hre) => {
   let tokenDecimals = null
 
   for (const token of preSupportedTokens.supportedTokens) {
+    let supply = initialSupply_18
+
+    if (token.decimals === 6) {
+      supply = initialSupply_6
+    } else if (token.decimals === 8) {
+      supply = initialSupply_8
+    }
     if (
       (hre as any).deployConfig.network === 'local' ||
       token.symbol === 'TEST'
@@ -66,15 +73,7 @@ const deployFn: DeployFunction = async (hre) => {
       //do not deploy existing tokens on Rinkeby or Mainnet
       //only deploy tokens if it's the TEST token or we are on local
 
-      let supply = initialSupply_18
-
-      if (token.decimals === 6) {
-        supply = initialSupply_6
-      } else if (token.decimals === 8) {
-        supply = initialSupply_8
-      }
-
-      if (token.symbol !== 'BOBA') {
+      if (token.symbol !== 'HABTOR') {
         L1ERC20 = await Factory__L1ERC20.deploy(
           supply,
           token.name,
@@ -83,7 +82,7 @@ const deployFn: DeployFunction = async (hre) => {
         )
         await L1ERC20.deployTransaction.wait()
       } else {
-        L1ERC20 = await Factory__L1Boba.deploy()
+        L1ERC20 = await Factory__L1Habtor.deploy()
         await L1ERC20.deployTransaction.wait()
       }
 
@@ -100,7 +99,7 @@ const deployFn: DeployFunction = async (hre) => {
         'TK_L1' + token.symbol,
         L1ERC20DeploymentSubmission
       )
-      await registerBobaAddress(
+      await registerHabtorAddress(
         addressManager,
         'TK_L1' + token.symbol,
         tokenAddressL1
@@ -109,14 +108,30 @@ const deployFn: DeployFunction = async (hre) => {
       console.log(
         `TK_L1${token.symbol} was newly deployed to ${tokenAddressL1}`
       )
-    } else if ((hre as any).deployConfig.network === 'rinkeby') {
-      tokenAddressL1 = token.address.rinkeby
+    } else if ((hre as any).deployConfig.network === 'testnet') {
+      tokenAddressL1 = token.address.testnet
+      if(!tokenAddressL1) {
 
+        if (token.symbol !== 'HABTOR') {
+          L1ERC20 = await Factory__L1ERC20.deploy(
+            supply,
+            token.name,
+            token.symbol,
+            token.decimals
+          )
+          await L1ERC20.deployTransaction.wait()
+        } else {
+          L1ERC20 = await Factory__L1Habtor.deploy()
+          await L1ERC20.deployTransaction.wait()
+        }
+        tokenAddressL1 = L1ERC20.address
+        console.log(`TK_L1${token.name} is deployed at ${tokenAddressL1}`)
+      }
       await hre.deployments.save('TK_L1' + token.symbol, {
         abi: L1ERC20Json.abi,
         address: tokenAddressL1,
       })
-      await registerBobaAddress(
+      await registerHabtorAddress(
         addressManager,
         'TK_L1' + token.symbol,
         tokenAddressL1
@@ -125,12 +140,28 @@ const deployFn: DeployFunction = async (hre) => {
       console.log(`TK_L1${token.name} is located at ${tokenAddressL1}`)
     } else if ((hre as any).deployConfig.network === 'mainnet') {
       tokenAddressL1 = token.address.mainnet
+      if(!tokenAddressL1) {
 
+        if (token.symbol !== 'HABTOR') {
+          L1ERC20 = await Factory__L1ERC20.deploy(
+            supply,
+            token.name,
+            token.symbol,
+            token.decimals
+          )
+          await L1ERC20.deployTransaction.wait()
+        } else {
+          L1ERC20 = await Factory__L1Habtor.deploy()
+          await L1ERC20.deployTransaction.wait()
+        }
+        tokenAddressL1 = L1ERC20.address
+        console.log(`TK_L1${token.name} is deployed at ${tokenAddressL1}`)
+      }
       await hre.deployments.save('TK_L1' + token.symbol, {
         abi: L1ERC20Json.abi,
         address: tokenAddressL1,
       })
-      await registerBobaAddress(
+      await registerHabtorAddress(
         addressManager,
         'TK_L1' + token.symbol,
         tokenAddressL1
@@ -150,7 +181,7 @@ const deployFn: DeployFunction = async (hre) => {
 
     //Set up things on L2 for these tokens
 
-    if (token.symbol !== 'BOBA') {
+    if (token.symbol !== 'HABTOR') {
       L2ERC20 = await Factory__L2ERC20.deploy(
         (hre as any).deployConfig.L2StandardBridgeAddress,
         tokenAddressL1,
@@ -170,14 +201,14 @@ const deployFn: DeployFunction = async (hre) => {
         'TK_L2' + token.symbol,
         L2ERC20DeploymentSubmission
       )
-      await registerBobaAddress(
+      await registerHabtorAddress(
         addressManager,
         'TK_L2' + token.symbol,
         L2ERC20.address
       )
       console.log(`TK_L2${token.symbol} was deployed to ${L2ERC20.address}`)
     } else {
-      L2ERC20 = await Factory__L2Boba.deploy(
+      L2ERC20 = await Factory__L2Habtor.deploy(
         (hre as any).deployConfig.L2StandardBridgeAddress,
         tokenAddressL1,
         token.name,
@@ -196,7 +227,7 @@ const deployFn: DeployFunction = async (hre) => {
         'TK_L2' + token.symbol,
         L2ERC20DeploymentSubmission
       )
-      await registerBobaAddress(
+      await registerHabtorAddress(
         addressManager,
         'TK_L2' + token.symbol,
         L2ERC20.address

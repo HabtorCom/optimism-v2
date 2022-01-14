@@ -39,10 +39,10 @@ function DAO() {
     const dispatch = useDispatch()
 
     const theme = useTheme()
-    
+
     const balance = useSelector(selectDaoBalance)
     const votes = useSelector(selectDaoVotes)
-    
+
     let layer = useSelector(selectLayer())
 
     if (networkService.L1orL2 !== layer) {
@@ -60,7 +60,7 @@ function DAO() {
                   variant="body2"
                   component="p"
                 >
-                  You are on Ethereum Mainnet. To use the Boba DAO, SWITCH to Boba
+                  You are on BSC Mainnet. To use the Habtor DAO, SWITCH to Habtor
                 </S.AlertText>
               </S.AlertInfo>
               <LayerSwitcher isButton={true} />
@@ -79,10 +79,10 @@ function DAO() {
                             style={{background: theme.palette.background.secondary }}
                         >
                             <div className={styles.info}>
-                                <Typography variant="h3">{balance} Boba</Typography>
+                                <Typography variant="h3">{balance} Habtor</Typography>
                                 <Typography variant="h4">Wallet Balance</Typography>
                                 <Typography variant="body2" className={styles.helpText} style={{textAlign: 'left'}}>
-                                    To transfer Boba to another wallet, select "Transfer".
+                                    To transfer Habtor to another wallet, select "Transfer".
                                 </Typography>
                             </div>
                             <Button
@@ -92,16 +92,16 @@ function DAO() {
                                 onClick={()=>{dispatch(openModal('transferDaoModal'))}}
                             >Transfer</Button>
                         </div>
-                        <div className={styles.delegateContainer} 
+                        <div className={styles.delegateContainer}
                             style={{background: theme.palette.background.secondary}}
                         >
                             <div className={styles.info}>
                                 <Typography variant="h3">{votes} Votes</Typography>
                                 <Typography variant="h4">Voting Power</Typography>
                                 <Typography variant="body2" className={styles.helpText}>
-                                    To delegate voting authority, select "Delegate Votes". 
+                                    To delegate voting authority, select "Delegate Votes".
                                 </Typography>
-                            </div> 
+                            </div>
                             <Button
                                 color="primary"
                                 variant="contained"
@@ -114,8 +114,8 @@ function DAO() {
                             <Typography variant="body2" className={styles.helpTextLight} style={{textAlign: 'left', fontSize: '0.7em', lineHeight: '1.0em'}}>
                                 You can delegate to one address at a time.
                                 To vote from this account, please delegate your votes to yourself.
-                                The number of votes delegated is equal to your balance of BOBA.
-                                Votes are delegated until you delegate again (to someone else) or transfer your BOBA.
+                                The number of votes delegated is equal to your balance of HABTOR.
+                                Votes are delegated until you delegate again (to someone else) or transfer your HABTOR.
                             </Typography>
                             </div>
                     </div>
@@ -125,7 +125,7 @@ function DAO() {
                 </div>
             </div>
         </>
-    
+
     )
 }
 

@@ -17,8 +17,8 @@ function GasSwitcher() {
         <S.Menu>
           <S.NetWorkStyle>
             <S.Label variant="body2">
-              Ethereum Gas<br/>
-              Boba Gas<br/>
+              Binance Smart Chain Gas<br/>
+              Habtor Gas<br/>
               Savings<br/>
               L1 Block<br/>
               L2 Block
@@ -31,8 +31,8 @@ function GasSwitcher() {
               position: 'relative',
             }}
             >
-              <Typography 
-                variant="body2" 
+              <Typography
+                variant="body2"
                 sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', textTransform: 'capitalize'}}
               >
                 {gas.gasL1} Gwei<br/>
@@ -47,7 +47,7 @@ function GasSwitcher() {
       </S.WalletPickerWrapper>
     </S.WalletPickerContainer>
   )
-  
+
 }
 
 export default GasSwitcher

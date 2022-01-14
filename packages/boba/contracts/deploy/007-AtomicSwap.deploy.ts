@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import AtomicSwapJson from '../artifacts/contracts/AtomicSwap.sol/AtomicSwap.json'
 
@@ -29,7 +29,7 @@ const deployFn: DeployFunction = async (hre) => {
     abi: AtomicSwapJson.abi,
   }
   await hre.deployments.save('AtomicSwap', AtomicSwapDeploymentSubmission)
-  await registerBobaAddress(addressManager, 'AtomicSwap', AtomicSwap.address)
+  await registerHabtorAddress(addressManager, 'AtomicSwap', AtomicSwap.address)
   console.log(`AtomicSwap deployed to: ${AtomicSwap.address}`)
 }
 

@@ -3,20 +3,20 @@ import { getAllNetworks } from 'util/masterConfig'
 const nw = getAllNetworks()
 
 export default function etherScanInstance(masterSystemConfig, layer){
-  
+
   let axiosInstance = null;
-  
+
   if(masterSystemConfig === 'local') {
     return null //does not make sense on local
-  } 
-  else if (masterSystemConfig === 'rinkeby' && layer === 'L1') {
+  }
+  else if (masterSystemConfig === 'testnet' && layer === 'L1') {
     axiosInstance = axios.create({
-      baseURL: nw.rinkeby.L1.blockExplorer,
+      baseURL: nw.testnet.L1.blockExplorer,
     })
   }
-  else if (masterSystemConfig === 'rinkeby' && layer === 'L2') {
+  else if (masterSystemConfig === 'testnet' && layer === 'L2') {
     axiosInstance = axios.create({
-      baseURL: nw.rinkeby.L2.blockExplorer,
+      baseURL: nw.testnet.L2.blockExplorer,
     })
   }
   else if (masterSystemConfig === 'mainnet' && layer === 'L1') {

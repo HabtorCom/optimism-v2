@@ -3,16 +3,16 @@ import { getAllNetworks } from 'util/masterConfig'
 const nw = getAllNetworks()
 
 export default function omgxWatcherAxiosInstance(masterSystemConfig){
-  
+
   let axiosInstance = null
-  
+
   if(masterSystemConfig === 'local') {
     return null //does not make sense on local
-  } 
-  else if (masterSystemConfig === 'rinkeby') {
-    if(nw.rinkeby.OMGX_WATCHER_URL === null) return
+  }
+  else if (masterSystemConfig === 'testnet') {
+    if(nw.testnet.OMGX_WATCHER_URL === null) return
     axiosInstance = axios.create({
-      baseURL: nw.rinkeby.OMGX_WATCHER_URL,
+      baseURL: nw.testnet.OMGX_WATCHER_URL,
     })
   }
   else if (masterSystemConfig === 'mainnet') {

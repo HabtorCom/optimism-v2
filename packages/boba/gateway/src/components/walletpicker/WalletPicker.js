@@ -155,10 +155,10 @@ function WalletPicker ({ onEnable, enabled }) {
             <Grid container spacing={8}>
               <Grid item xs={12} md={6}>
                 <Typography variant="h1" component="h1">
-                  Connect a Wallet to access BOBA
+                  Connect a Wallet to access HABTOR
                 </Typography>
                 <S.Subtitle variant="body1" component="p" paragraph={true}>
-                    Select a wallet to connect to BOBA
+                    Select a wallet to connect to HABTOR
                 </S.Subtitle>
               </Grid>
 
@@ -191,11 +191,11 @@ function WalletPicker ({ onEnable, enabled }) {
             <Grid container spacing={1}>
               <Grid item xs={12} md={12}>
                 <Typography variant="h1" component="h1">
-                  SCHEDULED BOBA GATEWAY DOWNTIME
+                  SCHEDULED HABTOR GATEWAY DOWNTIME
                 </Typography>
                 <S.Subtitle variant="body1" component="p" paragraph={true}>
                   As announced in Twitter and in Telegram, due to unexpectely high demand for the
-                  Boba L2, BOBA liquidity pools are being rebalanced.
+                  Habtor L2, HABTOR liquidity pools are being rebalanced.
                 </S.Subtitle>
                 <S.Subtitle variant="body1" component="p" paragraph={true}>
                   The scheduled maintenance window is from Nov. 4 21:00 UTC to approximately 23:00 UTC.

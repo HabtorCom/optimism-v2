@@ -49,9 +49,9 @@ import { POLL_INTERVAL } from 'util/constant'
 function Account () {
 
   const networkLayer = networkService.L1orL2 === 'L1' ? 'L1' : 'L2'
-  
+
   const dispatch = useDispatch()
-  
+
   const [activeTab, setActiveTab] = useState(networkLayer === 'L1' ? 0 : 1)
 
   const childBalance = useSelector(selectlayer2Balance, isEqual)
@@ -135,11 +135,11 @@ function Account () {
     </Box>
   )
 
-  let label_L1 = 'Your Balance on Ethereum Mainnet'
-  if(network === 'rinkeby') label_L1 = 'Rinkeby L1'
+  let label_L1 = 'Your Balance on Binance Smart Chain Mainnet'
+  if(network === 'testnet') label_L1 = 'BSC Testnet L1'
 
-  let label_L2 = 'Your Balance on Boba Network'
-  if(network === 'rinkeby') label_L2 = 'Boba Rinkeby L2'
+  let label_L2 = 'Your Balance on Habtor Network'
+  if(network === 'testnet') label_L2 = 'Habtor Testnet L2'
 
   const L1Column = () => (
     <S.AccountWrapper >
@@ -213,7 +213,7 @@ function Account () {
 
       <S.CardTag>
         <S.CardContentTag>
-          <S.CardInfo>Boba Balances</S.CardInfo>
+          <S.CardInfo>Habtor Balances</S.CardInfo>
           {(network === 'mainnet') &&
           <Typography variant="body2">
              You are using Mainnet.<br/>
@@ -224,11 +224,11 @@ function Account () {
         </S.CardContentTag>
         <Box sx={{flex: 3}}>
           <S.ContentGlass>
-            <img src={Drink} href="#" width={135} alt="Boba Drink"/>
+            <img src={Drink} href="#" width={135} alt="Habtor Drink"/>
           </S.ContentGlass>
         </Box>
       </S.CardTag>
-      
+
       {disabled &&
         <S.LayerAlert style={{border: 'solid 1px yellow'}}>
           <S.AlertInfo>

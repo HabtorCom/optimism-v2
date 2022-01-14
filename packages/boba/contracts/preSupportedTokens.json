@@ -5,17 +5,17 @@
           "symbol": "TEST",
           "decimals": 18,
           "address": {
-              "rinkeby":"0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
-              "mainnet": "0xB68a38D3a10F28948EBf0f2450Fef348680F4714"
+              "testnet":"0xea663698255E066465dA0002704bb36DE11266fE",
+              "mainnet": "0x44DF0cA8d91fd98D86de48640482e7bac2255754"
           }
       },
       {
          "name": "Tether USD",
          "symbol": "USDT",
-         "decimals": 6,
+         "decimals": 18,
          "address": {
-             "rinkeby":"0xD9BA894E0097f8cC2BBc9D24D308b98e36dc6D02",
-             "mainnet": "0xdac17f958d2ee523a2206206994597c13d831ec7"
+             "testnet":"0xdCd75dF13F55Ab9Be47a3F9868e09d27623a37df",
+             "mainnet": "0x55d398326f99059fF775485246999027B3197955"
           }
       },
       {
@@ -23,35 +23,26 @@
          "symbol": "DAI",
          "decimals": 18,
          "address": {
-             "rinkeby":"0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
-             "mainnet": "0x6b175474e89094c44da98b954eedeac495271d0f"
+             "testnet":"0x82a14E79882F02fa0cbfb358a6D417f92dD1E55F",
+             "mainnet": "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3"
           }
       },
       {
          "name": "USD Coin",
          "symbol": "USDC",
-         "decimals": 6,
-         "address": {
-             "rinkeby":"0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b",
-             "mainnet": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-          }
-      },
-      {
-         "name": "Wrapped BTC",
-         "symbol": "WBTC",
-         "decimals": 8,
-         "address": {
-             "rinkeby":"0x577D296678535e4903D59A4C929B718e1D575e0A",
-             "mainnet": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"
-          }
-      },
-      {
-         "name": "Augur",
-         "symbol": "REP",
          "decimals": 18,
          "address": {
-             "rinkeby":"0x6e894660985207feb7cf89Faf048998c71E8EE89",
-             "mainnet": "0x221657776846890989a759ba2973e427dff5c9bb"
+             "testnet":"0x04a7B958B1A9d4E6abe561340b6e3769179f4970",
+             "mainnet": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"
+          }
+      },
+      {
+         "name": "BTCB Token",
+         "symbol": "BTCB",
+         "decimals": 18,
+         "address": {
+             "testnet":"0xC0a34859E526Fb06f34b45954D9C3A1eF063772A",
+             "mainnet": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c"
           }
       },
       {
@@ -59,17 +50,8 @@
          "symbol": "BAT",
          "decimals": 18,
          "address": {
-             "rinkeby":"0xbF7A7169562078c96f0eC1A8aFD6aE50f12e5A99",
-             "mainnet": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
-          }
-      },
-      {
-         "name": "0x Project",
-         "symbol": "ZRX",
-         "decimals": 18,
-         "address": {
-             "rinkeby":"0xddea378A6dDC8AfeC82C36E9b0078826bf9e68B6",
-             "mainnet": "0xe41d2489571d322189246dafa5ebde1f4699f498"
+             "testnet":"0x450C6Ed7850216ba9bb6DCdeeD5DE69BfA25C9c5",
+             "mainnet": "0x101d82428437127bF1608F699CD651e6Abf9766E"
           }
       },
       {
@@ -77,8 +59,8 @@
          "symbol": "SUSHI",
          "decimals": 18,
          "address": {
-             "rinkeby":"0xA434947525699FfbbF74260947c2906831FafD98",
-             "mainnet": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
+             "testnet":"0x744Ed4a8D192F9F55866bDE8a0F2d5bddc49f3Ff",
+             "mainnet": "0x947950BcC74888a40Ffa2593C5798F11Fc9124C4"
           }
       },
       {
@@ -86,8 +68,8 @@
          "symbol": "LINK",
          "decimals": 18,
          "address": {
-             "rinkeby":"0x01BE23585060835E02B77ef475b0Cc51aA1e0709",
-             "mainnet": "0x514910771af9ca656af840dff83e8264ecf986ca"
+             "testnet":"0xF9d908355D70f93BBBCCE9Fe08e0d55AAB3CB2e6",
+             "mainnet": "0xF8A0BF9cF54Bb92F17374d9e9A321E6a111a51bD"
           }
       },
       {
@@ -95,17 +77,8 @@
          "symbol": "UNI",
          "decimals": 18,
          "address": {
-             "rinkeby":"0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-             "mainnet": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
-          }
-      },
-      {
-         "name": "OMG Network",
-         "symbol": "OMG",
-         "decimals": 18,
-         "address": {
-             "rinkeby":"0x2B203de02AD6109521e09985b3aF9B8c62541Cd6",
-             "mainnet": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+             "testnet":"0xB0aaDF53057BA25C637e6c5996e4e4083B1A8435",
+             "mainnet": "0xBf5140A22578168FD562DCcF235E5D43A02ce9B1"
           }
       },
       {
@@ -113,8 +86,8 @@
          "symbol": "FRAX",
          "decimals": 18,
          "address": {
-             "rinkeby":"0xa23A5D188C8E2f4b3E029815a793972C58D89890",
-             "mainnet": "0x853d955acef822db058eb8505911ed77f175b99e"
+             "testnet":"0xdA2B551EDfEF24Fa11e265994A4E16AEA70c969c",
+             "mainnet": "0x90C97F71E18723b0Cf0dfa30ee176Ab653E89F40"
           }
       },
       {
@@ -122,44 +95,26 @@
          "symbol": "FXS",
          "decimals": 18,
          "address": {
-             "rinkeby":"0xb1efaEC30db0da6CD2ADbDE71D82A73DcA6aF182",
-             "mainnet": "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0"
+             "testnet":"0x93F8DD84EE4B1E6b62067C4f363281374Eeb6b6a",
+             "mainnet": "0xe48A3d7d0Bc88d552f730B62c006bC925eadB9eE"
           }
       },
       {
-         "name": "Boba Network",
-         "symbol": "BOBA",
+         "name": "Habtor Token",
+         "symbol": "HABTOR",
          "decimals": 18,
          "address": {
-             "rinkeby":"0x6A6676813d3D4317442CF84667425C13553F4a76",
-             "mainnet": "0x42bbfa2e77757c645eeaad1655e0911a7553efbc"
+             "testnet":"0x66107D290F77294a64b4e8E321608e57E64E1F27",
+             "mainnet": ""
           }
-      },
-      {
-        "name": "Wrapped UST",
-        "symbol": "UST",
-        "decimals": 18,
-        "address": {
-            "rinkeby":"0x012e4C202b1153183F7B0e7A90348C4cCE15d2c9",
-            "mainnet": "0xa47c8bf37f92aBed4A126BDA807A7b7498661acD"
-         }
       },
       {
         "name": "Binance USD",
         "symbol": "BUSD",
         "decimals": 18,
         "address": {
-            "rinkeby":"0x697Eda570FE014832456b4B3d2Dff8591eA3f4fc",
-            "mainnet": "0x4fabb145d64652a948d72533023f6e7a623c7c53"
-         }
-      },
-      {
-        "name": "BNB",
-        "symbol": "BNB",
-        "decimals": 18,
-        "address": {
-            "rinkeby":"0xeB72FaBBEF4D4F59bCA384123977eD9529c9bd2e",
-            "mainnet": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52"
+            "testnet":"0x14417025110F7E652E6Cf758fF9dCb8e029876A4",
+            "mainnet": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"
          }
       },
       {
@@ -167,17 +122,8 @@
         "symbol": "FTM",
         "decimals": 18,
         "address": {
-            "rinkeby":"0x72fe8933fca2c14a8e2b3bf050e3d81e90efeb60",
-            "mainnet": "0x4e15361fd6b4bb609fa63c81a2be19d873717870"
-         }
-      },
-      {
-        "name": "Matic Token",
-        "symbol": "MATIC",
-        "decimals": 18,
-        "address": {
-            "rinkeby":"0x3ac6affed629a16ffccd1c865ad6e10dc0a1076a",
-            "mainnet": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+            "testnet":"0xFeC64ad462f3b16Fb22Ef9F05be2171bF510d848",
+            "mainnet": "0xAD29AbB318791D579433D831ed122aFeAf29dcfe"
          }
       }
    ]

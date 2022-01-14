@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory, ethers } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import ProxyJson from '../artifacts/contracts/libraries/Lib_ResolvedDelegateProxy.sol/Lib_ResolvedDelegateProxy.json'
 import L1NFTBridgeJson from '../artifacts/contracts/bridges/L1NFTBridge.sol/L1NFTBridge.json'
@@ -48,7 +48,7 @@ const deployFn: DeployFunction = async (hre) => {
     abi: Proxy__L1NFTBridge.abi,
   }
 
-  await registerBobaAddress(
+  await registerHabtorAddress(
     addressManager,
     'Proxy__L1NFTBridge',
     Proxy__L1NFTBridge.address
@@ -70,7 +70,7 @@ const deployFn: DeployFunction = async (hre) => {
     abi: Proxy__L2NFTBridge.abi,
   }
 
-  await registerBobaAddress(
+  await registerHabtorAddress(
     addressManager,
     'Proxy__L2NFTBridge',
     Proxy__L2NFTBridge.address

@@ -9,7 +9,7 @@ const config: HardhatUserConfig = {
     timeout: 300000,
   },
   networks: {
-    boba: {
+    habtor: {
       url: 'http://localhost:8545',
       saveDeployments: false,
     },

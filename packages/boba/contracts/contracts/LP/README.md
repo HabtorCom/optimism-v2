@@ -4,11 +4,11 @@
 
 For each supported token, there are two pools, on on the L1, and the other, on the L2.
 
-When a user wishes to bridge funds into the L2 (`fast bridge to L2`), the user deposits funds into the L1 pool, triggering a message to be sent cross-chain to the L2 pool, which then sends the correct amount of funds to the user's L2 wallet. Likewise, the `fast bridge to L1` consists of a user depositing funds into the L2 pool, which then triggers the L1 pool to send the user the correct amount of funds to their L1 wallet. For BOBA, there are no delays for users to move funds from L1 to L2, and from L2 to L1.
+When a user wishes to bridge funds into the L2 (`fast bridge to L2`), the user deposits funds into the L1 pool, triggering a message to be sent cross-chain to the L2 pool, which then sends the correct amount of funds to the user's L2 wallet. Likewise, the `fast bridge to L1` consists of a user depositing funds into the L2 pool, which then triggers the L1 pool to send the user the correct amount of funds to their L1 wallet. For HABTOR, there are no delays for users to move funds from L1 to L2, and from L2 to L1.
 
-Aside from normal users, the pools offer additional functionality to other parties. **Liquidity providers** (`stakers`) can deposit and withdraw funds from the pools; they earn rewards in proportion to their stake in the pool. Occasionally, they will withdraw their rewards via a dedicated function. 
+Aside from normal users, the pools offer additional functionality to other parties. **Liquidity providers** (`stakers`) can deposit and withdraw funds from the pools; they earn rewards in proportion to their stake in the pool. Occasionally, they will withdraw their rewards via a dedicated function.
 
-Finally, the pools are controlled by an **admin** (`OnlyAdmin`) and/or the **Boba DAO** (OnlyDAO), which is able to set the fees users must pay to use the fast bridges. These fees are the source of the rewards for the liquidity providers.
+Finally, the pools are controlled by an **admin** (`OnlyAdmin`) and/or the **Habtor DAO** (OnlyDAO), which is able to set the fees users must pay to use the fast bridges. These fees are the source of the rewards for the liquidity providers.
 
 ## Reward Calculation and Updating
 

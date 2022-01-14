@@ -57,15 +57,15 @@ import L2ERC20Json from '../deployment/artifacts-base/contracts/standards/L2Stan
 //special one-off location
 import OMGJson from '../deployment/contracts/OMG.json'
 
-//BOBA L2 Contracts
+//HABTOR L2 Contracts
 import L2ERC721Json    from '../deployment/artifacts-boba/contracts/ERC721Genesis.sol/ERC721Genesis.json'
 
 //DAO
-import Boba from "../deployment/artifacts-boba/contracts/standards/L2GovernanceERC20.sol/L2GovernanceERC20.json"
+import Habtor from "../deployment/artifacts-boba/contracts/standards/L2GovernanceERC20.sol/L2GovernanceERC20.json"
 import GovernorBravoDelegate from "../deployment/contracts/GovernorBravoDelegate.json"
 import GovernorBravoDelegator from "../deployment/contracts/GovernorBravoDelegator.json"
 
-//Airdrop
+// //Airdrop
 import BobaAirdropJson from "../deployment/contracts/BobaAirdrop.json"
 
 import { accDiv, accMul } from 'util/calculation'
@@ -115,7 +115,7 @@ class NetworkService {
 
     this.L1_TEST_Contract = null
     this.L2_TEST_Contract = null
-    this.L1_OMG_Contract = null
+    // this.L1_OMG_Contract = null
     this.L2_ETH_Contract = null
 
     this.ERC721Contract = null
@@ -137,7 +137,7 @@ class NetworkService {
     this.L2GasLimit = 1300000 //use the same as the hardcoded receive
 
     // Dao
-    this.BobaContract = null
+    this.HbtorContract = null
     this.delegateContract = null
     this.delegatorContract = null
 
@@ -347,10 +347,10 @@ class NetworkService {
       const L2ChainId = nw[masterSystemConfig]['L2']['chainId']
 
       //there are numerous possible chains we could be on
-      //either local, rinkeby etc
+      //either local, testnet etc
       //also, either L1 or L2
 
-      //at this point, we only know whether we want to be on local or rinkeby etc
+      //at this point, we only know whether we want to be on local or testnet etc
       if (masterSystemConfig === 'local' && network.chainId === L2ChainId) {
         //ok, that's reasonable
         //local deployment, L2
@@ -359,29 +359,29 @@ class NetworkService {
         //ok, that's reasonable
         //local deployment, L1
         this.L1orL2 = 'L1'
-      } else if (masterSystemConfig === 'rinkeby' && network.chainId === L1ChainId) {
+      } else if (masterSystemConfig === 'testnet' && network.chainId === L1ChainId) {
         //ok, that's reasonable
-        //rinkeby, L1
+        //testnet, L1
         this.L1orL2 = 'L1'
-      } else if (masterSystemConfig === 'rinkeby' && network.chainId === L2ChainId) {
+      } else if (masterSystemConfig === 'testnet' && network.chainId === L2ChainId) {
         //ok, that's reasonable
-        //rinkeby, L2
+        //testnet, L2
         this.L1orL2 = 'L2'
-      } else if (masterSystemConfig === 'rinkeby_integration' && network.chainId === L1ChainId) {
+      } else if (masterSystemConfig === 'testnet_integration' && network.chainId === L1ChainId) {
         //ok, that's reasonable
-        //rinkeby, L1
+        //testnet, L1
         this.L1orL2 = 'L1'
-      } else if (masterSystemConfig === 'rinkeby_integration' && network.chainId === L2ChainId) {
+      } else if (masterSystemConfig === 'testnet_integration' && network.chainId === L2ChainId) {
         //ok, that's reasonable
-        //rinkeby, L2
+        //testnet, L2
         this.L1orL2 = 'L2'
       } else if (masterSystemConfig === 'mainnet' && network.chainId === L1ChainId) {
         //ok, that's reasonable
-        //rinkeby, L2
+        //testnet, L2
         this.L1orL2 = 'L1'
       } else if (masterSystemConfig === 'mainnet' && network.chainId === L2ChainId) {
         //ok, that's reasonable
-        //rinkeby, L2
+        //testnet, L2
         this.L1orL2 = 'L2'
       } else {
         console.log("ERROR: masterSystemConfig does not match actual network.chainId")
@@ -412,8 +412,8 @@ class NetworkService {
       if (!(await this.getAddress('Proxy__L1StandardBridge', 'L1StandardBridgeAddress'))) return
       if (!(await this.getAddress('DiscretionaryExitBurn', 'DiscretionaryExitBurn'))) return
 
-      await this.getAddress('BobaAirdropL2', 'BobaAirdropL2')
-      console.log("BobaAirdropL2:",allAddresses.BobaAirdropL2)
+      // await this.getAddress('BobaAirdropL2', 'BobaAirdropL2')
+      // console.log("BobaAirdropL2:",allAddresses.BobaAirdropL2)
 
       //L2StandardBridgeAddress is a predeploy, so add by hand....
       allAddresses = {
@@ -447,21 +447,19 @@ class NetworkService {
       )
       console.log("L1StandardBridgeContract:", this.L1StandardBridgeContract.address)
 
-      let supportedTokens = [ 'USDT', 'DAI', 'USDC', 'WBTC',
-                              'REP',  'BAT', 'ZRX',  'SUSHI',
-                              'LINK', 'UNI', 'BOBA', 'OMG',
-                              'FRAX', 'FXS', 'DODO', 'UST',
-                              'BUSD', 'BNB', 'FTM',  'MATIC'
+      let supportedTokens = [ 'USDT', 'DAI', 'USDC', 'BTCB',
+                              'BAT', 'SUSHI', 'LINK', 'UNI',
+                              'FRAX', 'FXS', 'HABTOR', 'BUSD',
+                              'FTM'
                             ]
 
       //not all tokens are on Rinkeby
-      if ( masterSystemConfig === 'rinkeby') {
-        supportedTokens = [ 'USDT', 'DAI', 'USDC', 'WBTC',
-                          'REP',  'BAT', 'ZRX',  'SUSHI',
-                          'LINK', 'UNI', 'BOBA', 'OMG',
-                          //'FRAX', 'FXS', 'UST',
-                          //'BUSD', 'BNB', 'FTM',  'MATIC'
-                        ]
+      if ( masterSystemConfig === 'testnet') {
+        supportedTokens = [ 'USDT', 'DAI', 'USDC', 'BTCB',
+                            'BAT', 'SUSHI', 'LINK', 'UNI',
+                            'FRAX', 'FXS', 'HABTOR', 'BUSD',
+                            'FTM'
+                          ]
       }
 
       await Promise.all(supportedTokens.map(async (key) => {
@@ -505,14 +503,14 @@ class NetworkService {
 
       /*The test token*/
       this.L1_TEST_Contract = new ethers.Contract(
-        allTokens.BOBA.L1, //this will get changed anyway when the contract is used
+        allTokens.HABTOR.L1, //this will get changed anyway when the contract is used
         L1ERC20Json.abi,
         this.provider.getSigner()
       )
       //console.log('L1_TEST_Contract:', this.L1_TEST_Contract)
 
       this.L2_TEST_Contract = new ethers.Contract(
-        allTokens.BOBA.L2, //this will get changed anyway when the contract is used
+        allTokens.HABTOR.L2, //this will get changed anyway when the contract is used
         L2ERC20Json.abi,
         this.provider.getSigner()
       )
@@ -520,11 +518,11 @@ class NetworkService {
 
       /*The OMG token*/
       //We need this seperately because OMG is not ERC20 compliant
-      this.L1_OMG_Contract = new ethers.Contract(
-        allTokens.OMG.L1,
-        OMGJson,
-        this.provider.getSigner()
-      )
+      // this.L1_OMG_Contract = new ethers.Contract(
+      //   allTokens.OMG.L1,
+      //   OMGJson,
+      //   this.provider.getSigner()
+      // )
       //console.log('L1_OMG_Contract:', this.L1_OMG_Contract)
 
       // Liquidity pools
@@ -579,16 +577,16 @@ class NetworkService {
         },
       })
 
-      console.log('Setting up BOBA for the DAO:',allTokens.BOBA.L2)
+      console.log('Setting up HABTOR for the DAO:',allTokens.HABTOR.L2)
 
-      this.BobaContract = new ethers.Contract(
-        allTokens.BOBA.L2,
-        Boba.abi,
+      this.HabtorContract = new ethers.Contract(
+        allTokens.HABTOR.L2,
+        Habtor.abi,
         this.provider.getSigner()
       )
 
       //DAO related
-      if( /*(masterSystemConfig === 'local' || masterSystemConfig === 'rinkeby') && */ this.L1orL2 === 'L2' ) {
+      if( /*(masterSystemConfig === 'local' || masterSystemConfig === 'testnet') && */ this.L1orL2 === 'L2' ) {
 
         if (!(await this.getAddress('GovernorBravoDelegate', 'GovernorBravoDelegate'))) return
         if (!(await this.getAddress('GovernorBravoDelegator', 'GovernorBravoDelegator'))) return
@@ -881,11 +879,11 @@ class NetworkService {
     NFTContracts = Object.entries(await getNFTContracts())
 
     for(let i = 0; i < NFTContracts.length; i++) {
-      
+
       const address = NFTContracts[i][1].address
 
       //console.log("address:",address)
-      
+
       let contract = new ethers.Contract(
         address,
         L2ERC721Json.abi,
@@ -943,7 +941,7 @@ class NetworkService {
           const { url , meta = [] } = await getNftImageUrl(nftMeta !== '' ? nftMeta : `https://boredapeyachtclub.com/api/mutants/121`)
 
           let NFT = {
-            UUID, 
+            UUID,
             address,
             name: nftName,
             tokenID,
@@ -1559,8 +1557,8 @@ class NetworkService {
     }
   }
 
-  //Standard 7 day exit from BOBA
-  async exitBOBA(currencyAddress, value_Wei_String) {
+  //Standard 7 day exit from HABTOR
+  async exitHABTOR(currencyAddress, value_Wei_String) {
 
     updateSignatureStatus_exitTRAD(false)
 
@@ -1619,7 +1617,7 @@ class NetworkService {
 
       return tx
     } catch (error) {
-      console.log("NS: exitBOBA error:", error)
+      console.log("NS: exitHABTOR error:", error)
       return error
     }
 
@@ -1715,7 +1713,7 @@ class NetworkService {
   async getL2TotalFeeRate() {
 
     try{
-    
+
       const L2LPContract = new ethers.Contract(
         allAddresses.L2LPAddress,
         L2LPJson.abi,
@@ -2044,7 +2042,7 @@ class NetworkService {
   }
 
   /***********************************************************/
-  /***** SWAP ON to BOBA by depositing funds to the L1LP *****/
+  /***** SWAP ON to HABTOR by depositing funds to the L1LP *****/
   /***********************************************************/
   async depositL1LP(currency, value_Wei_String) {
 
@@ -2327,7 +2325,7 @@ class NetworkService {
   }
 
   /**************************************************************/
-  /***** SWAP OFF from BOBA by depositing funds to the L2LP *****/
+  /***** SWAP OFF from HABTOR by depositing funds to the L2LP *****/
   /**************************************************************/
   async fastExitAll(currencyAddress) {
 
@@ -2476,7 +2474,7 @@ class NetworkService {
   }
 
   /**************************************************************/
-  /***** SWAP OFF from BOBA by depositing funds to the L2LP *****/
+  /***** SWAP OFF from HABTOR by depositing funds to the L2LP *****/
   /**************************************************************/
   async depositL2LP(currencyAddress, value_Wei_String) {
 
@@ -2583,14 +2581,14 @@ class NetworkService {
   async getDaoBalance() {
 
     //if( this.masterSystemConfig === 'mainnet' ) return
-    //if( this.masterSystemConfig === 'rinkeby' ) return
+    //if( this.masterSystemConfig === 'testnet' ) return
 
     if( this.L1orL2 !== 'L2' ) return
-    if( this.BobaContract === null ) return
+    if( this.HabtorContract === null ) return
 
     try {
       //console.log('Checking DAO balance')
-      let balance = await this.BobaContract.balanceOf(this.account)
+      let balance = await this.HbtorContract.balanceOf(this.account)
       //console.log('balance',balance)
       return { balance: formatEther(balance) }
     } catch (error) {
@@ -2603,13 +2601,13 @@ class NetworkService {
   async getDaoVotes() {
 
     //if( this.masterSystemConfig === 'mainnet' ) return
-    //if( this.masterSystemConfig === 'rinkeby' ) return
+    //if( this.masterSystemConfig === 'testnet' ) return
 
     if( this.L1orL2 !== 'L2' ) return
-    if( this.BobaContract === null ) return
+    if( this.HbtorContract === null ) return
 
     try {
-      let votes = await this.BobaContract.getCurrentVotes(this.account)
+      let votes = await this.HbtorContract.getCurrentVotes(this.account)
       return { votes: formatEther(votes) }
     } catch (error) {
       console.log('NS: getDaoVotes error:', error)
@@ -2621,10 +2619,10 @@ class NetworkService {
   async transferDao({ recipient, amount }) {
 
     if( this.L1orL2 !== 'L2' ) return
-    if( this.BobaContract === null ) return
+    if( this.HbtorContract === null ) return
 
     try {
-      const tx = await this.BobaContract.transfer(recipient, parseEther(amount.toString()))
+      const tx = await this.HbtorContract.transfer(recipient, parseEther(amount.toString()))
       await tx.wait()
       return tx
     } catch (error) {
@@ -2637,10 +2635,10 @@ class NetworkService {
   async delegateVotes({ recipient }) {
 
     if( this.L1orL2 !== 'L2' ) return
-    if( this.BobaContract === null ) return
+    if( this.HbtorContract === null ) return
 
     try {
-      const tx = await this.BobaContract.delegate(recipient)
+      const tx = await this.HbtorContract.delegate(recipient)
       await tx.wait()
       return tx
     } catch (error) {
@@ -2653,7 +2651,7 @@ class NetworkService {
   async getProposalThreshold() {
 
     //if( this.masterSystemConfig === 'mainnet' ) return
-    //if( this.masterSystemConfig === 'rinkeby' ) return
+    //if( this.masterSystemConfig === 'testnet' ) return
 
     if( this.L1orL2 !== 'L2' ) return
     if( this.delegateContract === null ) return
@@ -2674,7 +2672,7 @@ class NetworkService {
   async createProposal(payload) {
 
     //if( this.masterSystemConfig === 'mainnet' ) return
-    //if( this.masterSystemConfig === 'rinkeby' ) return
+    //if( this.masterSystemConfig === 'testnet' ) return
 
     if( this.L1orL2 !== 'L2' ) return
     if( this.delegateContract === null ) return
@@ -2725,7 +2723,7 @@ class NetworkService {
       address = [delegateCheck.address]
       signatures = ['_setProposalThreshold(uint256)']
       value1 = Number(payload.value[0])
-      description = `Change Proposal Threshold to ${value1} BOBA`
+      description = `Change Proposal Threshold to ${value1} HABTOR`
       callData = [ethers.utils.defaultAbiCoder.encode(
         ['uint256'],
         [value1]
@@ -2737,10 +2735,10 @@ class NetworkService {
       let values = [0] //amount of ETH to send, generally, zero
 
       // console.log("Submitting proposal:", {
-      //   address, 
-      //   values, 
-      //   signatures, 
-      //   callData, 
+      //   address,
+      //   values,
+      //   signatures,
+      //   callData,
       //   description
       // })
 
@@ -2763,7 +2761,7 @@ class NetworkService {
   async fetchProposals() {
 
     //if( this.masterSystemConfig === 'mainnet' ) return
-    //if( this.masterSystemConfig === 'rinkeby' ) return
+    //if( this.masterSystemConfig === 'testnet' ) return
 
     if( this.L1orL2 !== 'L2' ) return
     if( this.delegateContract === null ) return
@@ -2779,7 +2777,7 @@ class NetworkService {
 
       const totalProposals = await proposalCounts.toNumber()
       //console.log('totalProposals:',totalProposals)
-      
+
       const filter = delegateCheck.filters.ProposalCreated(
         null, null, null, null, null,
         null, null, null, null
@@ -2788,7 +2786,7 @@ class NetworkService {
       //console.log('filter:',filter)
 
       const descriptionList = await delegateCheck.queryFilter(filter)
-      
+
       //console.log('descriptionList:',descriptionList)
 
       for (let i = 0; i < totalProposals; i++) {

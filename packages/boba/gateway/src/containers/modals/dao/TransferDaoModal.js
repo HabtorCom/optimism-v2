@@ -66,16 +66,16 @@ function TransferDaoModal({ open = false }) {
         >
         <Box>
             <Typography variant="h2" sx={{fontWeight: 700, mb: 2}}>
-                Transfer Boba
+                Transfer Habtor
             </Typography>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
                 <Input
-                    placeholder='Recipient address on the Boba L2 (0x...)'
+                    placeholder='Recipient address on the Habtor L2 (0x...)'
                     value={recipient}
                     onChange={i => setRecipient(i.target.value)}
                     fullWidth
                     paste
-                    sx={{fontSize: '50px', marginBottom: '20px'}}  
+                    sx={{fontSize: '50px', marginBottom: '20px'}}
                 />
                 <Input
                     label='Amount to Transfer'
@@ -100,7 +100,7 @@ function TransferDaoModal({ open = false }) {
                 onClick={()=>{submit()}}
                 color='primary'
                 variant="contained"
-                tooltip={loading ? "Your transaction is still pending. Please wait for confirmation." : "Click here to transfer BOBA from one L2 address to another L2 address"}
+                tooltip={loading ? "Your transaction is still pending. Please wait for confirmation." : "Click here to transfer HABTOR from one L2 address to another L2 address"}
                 loading={loading}
                 disabled={disabledTransfer}
                 triggerTime={new Date()}

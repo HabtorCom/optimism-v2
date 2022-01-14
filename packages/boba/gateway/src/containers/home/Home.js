@@ -50,16 +50,16 @@ import TransferDaoModal from 'containers/modals/dao/TransferDaoModal'
 import DelegateDaoModal from 'containers/modals/dao/DelegateDaoModal'
 import NewProposalModal from 'containers/modals/dao/NewProposalModal'
 
-import { 
-  fetchDaoBalance, 
-  fetchDaoVotes, 
-  fetchDaoProposals, 
-  getProposalThreshold 
+import {
+  fetchDaoBalance,
+  fetchDaoVotes,
+  fetchDaoProposals,
+  getProposalThreshold
 } from 'actions/daoAction'
 
 import Airdrop from 'containers/airdrop/Airdrop'
 
-import { 
+import {
   fetchAirdropStatusL1,
   fetchAirdropStatusL2,
 } from 'actions/airdropAction'
@@ -137,14 +137,14 @@ function Home () {
   useInterval(() => {
     dispatch(fetchBalances())
     dispatch(fetchNFTs())
-    dispatch(fetchAirdropStatusL1())
-    dispatch(fetchAirdropStatusL2())
+    // dispatch(fetchAirdropStatusL1())
+    // dispatch(fetchAirdropStatusL2())
     dispatch(fetchDaoBalance())
     dispatch(fetchDaoVotes())
     dispatch(fetchDaoProposals())
     dispatch(getProposalThreshold())
     dispatch(fetchGas())
-    dispatch(fetchExits())
+    // dispatch(fetchExits())
   }, POLL_INTERVAL)
 
   useEffect(() => {
@@ -154,7 +154,7 @@ function Home () {
   return (
     <>
       {!!depositModalState && <DepositModal  open={depositModalState}  token={token} fast={fast} />}
-      {!!transferModalState && <TransferModal open={transferModalState} token={token} fast={fast} />} 
+      {!!transferModalState && <TransferModal open={transferModalState} token={token} fast={fast} />}
       {!!exitModalState && <ExitModal open={exitModalState} token={token} fast={fast} />}
 
       {!!addTokenModalState  && <AddTokenModal   open={addTokenModalState} />}

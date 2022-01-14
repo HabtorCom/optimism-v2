@@ -10,7 +10,7 @@ import { IL2StandardERC20 } from "@eth-optimism/contracts/contracts/standards/IL
 contract L2GovernanceERC20 is IL2StandardERC20, ERC20, ERC20Permit, ERC20Votes, ERC20VotesComp {
     address public l1Token;
     address public l2Bridge;
-    uint224 public constant maxSupply = 500000000e18; // 500 million BOBA
+    uint224 public constant maxSupply = 500000000e18; // 500 million HABTOR
     uint8 private immutable _decimals;
 
     /**
@@ -40,7 +40,7 @@ contract L2GovernanceERC20 is IL2StandardERC20, ERC20, ERC20Permit, ERC20Votes, 
     function decimals() public view virtual override returns (uint8) {
         return _decimals;
     }
-    
+
     function supportsInterface(bytes4 _interfaceId) public pure returns (bool) {
         bytes4 firstSupportedInterface = bytes4(keccak256("supportsInterface(bytes4)")); // ERC165
         bytes4 secondSupportedInterface = IL2StandardERC20.l1Token.selector

@@ -65,7 +65,7 @@ function BobaScope() {
 
   return (
     <>
-      <PageHeader title="BobaScope" />
+      <PageHeader title="HabtorScope" />
 
       <S.Header>
         <div className={styles.searchInput}>

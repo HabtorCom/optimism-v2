@@ -19,15 +19,15 @@ class ListAccount extends React.Component {
   constructor(props) {
 
     super(props)
-    
-    const { 
-      token, 
-      chain, 
-      networkLayer, 
+
+    const {
+      token,
+      chain,
+      networkLayer,
       disabled,
-      loading 
+      loading
     } = this.props
-    
+
     this.state = {
       token,
       chain,
@@ -41,12 +41,12 @@ class ListAccount extends React.Component {
 
   componentDidUpdate(prevState) {
 
-    const { 
-      token, 
-      chain, 
-      networkLayer, 
+    const {
+      token,
+      chain,
+      networkLayer,
       disabled,
-      loading 
+      loading
     } = this.props
 
     if (!isEqual(prevState.token, token)) {
@@ -88,7 +88,7 @@ class ListAccount extends React.Component {
     const enabled = (networkLayer === chain) ? true : false
     const logo = getCoinImage(token.symbol)
 
-    const amount = token.symbol === 'ETH' ? 
+    const amount = token.symbol === 'ETH' ?
       Number(logAmount(token.balance, token.decimals, 3)).toLocaleString(undefined, {minimumFractionDigits: 3,maximumFractionDigits:3}) :
       Number(logAmount(token.balance, token.decimals, 2)).toLocaleString(undefined, {minimumFractionDigits: 2,maximumFractionDigits:2})
 
@@ -106,10 +106,10 @@ class ListAccount extends React.Component {
               </S.TableCell>
 
               <S.TableCell sx={{justifyContent: "flex-start"}}>
-                <S.TextTableCell 
-                  enabled={`${enabled}`} 
-                  variant="body2" 
-                  component="div" 
+                <S.TextTableCell
+                  enabled={`${enabled}`}
+                  variant="body2"
+                  component="div"
                   sx={{fontWeight:'700'}}
                 >
                   {amount}
@@ -190,7 +190,7 @@ class ListAccount extends React.Component {
                   color='neutral'
                   variant="outlined"
                   disabled={disabled}
-                  tooltip="Classic Bridge to Boba L2. This option is always available but is generally more expensive than the swap-based system ('Fast Bridge')."
+                  tooltip="Classic Bridge to Habtor L2. This option is always available but is generally more expensive than the swap-based system ('Fast Bridge')."
                   fullWidth
                 >
                   Bridge to L2
@@ -201,7 +201,7 @@ class ListAccount extends React.Component {
                   color='primary'
                   disabled={disabled}
                   variant="contained"
-                  tooltip="A swap-based bridge to Boba L2. This option is only available if the pool balance is sufficient."
+                  tooltip="A swap-based bridge to Habtor L2. This option is only available if the pool balance is sufficient."
                   fullWidth
                 >
                   Fast Bridge to L2

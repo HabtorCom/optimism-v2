@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory, utils } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import L2TokenPoolJson from '../artifacts/contracts/TokenPool.sol/TokenPool.json'
 let Factory__L2TokenPool: ContractFactory
@@ -34,7 +34,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
 
   await hre.deployments.save('L2TokenPool', L2TokenPoolDeploymentSubmission)
-  await registerBobaAddress(addressManager, 'L2TokenPool', L2TokenPool.address)
+  await registerHabtorAddress(addressManager, 'L2TokenPool', L2TokenPool.address)
   console.log(`L2 TokenPool deployed to: ${L2TokenPool.address}`)
 
   if (TK_L2TEST === undefined) {

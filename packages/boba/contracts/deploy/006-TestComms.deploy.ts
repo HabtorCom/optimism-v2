@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import L1MessageJson from '../artifacts/contracts/test-helpers/Message/L1Message.sol/L1Message.json'
 import L2MessageJson from '../artifacts/contracts/test-helpers/Message/L2Message.sol/L2Message.json'
@@ -47,7 +47,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
   await hre.deployments.save('L1Message', L1MessageDeploymentSubmission)
   console.log(`L1 Message deployed to: ${L1Message.address}`)
-  await registerBobaAddress(addressManager, 'L1Message', L1Message.address)
+  await registerHabtorAddress(addressManager, 'L1Message', L1Message.address)
 
   L2Message = await Factory__L2Message.deploy(
     (hre as any).deployConfig.l2MessengerAddress
@@ -61,7 +61,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
   await hre.deployments.save('L2Message', L2MessageDeploymentSubmission)
   console.log(`L2 Message deployed to: ${L2Message.address}`)
-  await registerBobaAddress(addressManager, 'L2Message', L2Message.address)
+  await registerHabtorAddress(addressManager, 'L2Message', L2Message.address)
 
   // Initialize L1 message
   const L1MessageTX = await L1Message.init(L2Message.address)

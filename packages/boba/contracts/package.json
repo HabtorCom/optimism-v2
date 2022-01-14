@@ -1,9 +1,9 @@
 {
-  "name": "@boba/contracts",
+  "name": "@habtor/contracts",
   "version": "0.0.1",
-  "description": "BOBA Smart Contracts",
+  "description": "HABTOR Smart Contracts",
   "private": true,
-  "author": "OMG",
+  "author": "HABTOR",
   "license": "MIT",
   "scripts": {
     "build": "yarn build:contracts",

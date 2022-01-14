@@ -1,9 +1,9 @@
-service: sls-boba-service # NOTE: update this with your service name
+service: sls-habtor-service # NOTE: update this with your service name
 
 provider:
   name: aws
   runtime: python3.7
-  stackName: sls-boba-service
+  stackName: sls-habtor-service
   stage: prod
   region: us-east-1
   role: ${file(env.yml):ROLE}

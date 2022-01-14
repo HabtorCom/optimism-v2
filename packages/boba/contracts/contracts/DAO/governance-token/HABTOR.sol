@@ -20,14 +20,14 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20VotesComp.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 /**
- * @title Boba Token (BOBA)
+ * @title HABTOR Token (HABTOR)
  *
  */
 
-contract BOBA is Context, ERC20, ERC20Burnable, ERC20Permit, ERC20Votes, ERC20VotesComp {
+contract HABTOR is Context, ERC20, ERC20Burnable, ERC20Permit, ERC20Votes, ERC20VotesComp {
 
     /// @notice Maximum possible number of tokens
-    uint224 public constant maxSupply = 500000000e18; // 500 million BOBA
+    uint224 public constant maxSupply = 500000000e18; // 500 million HABTOR
 
     /// @notice Maximum token supply. Needed to fit the COMP interface.
     //  The math: The classic Comp governance contracts are
@@ -37,7 +37,7 @@ contract BOBA is Context, ERC20, ERC20Burnable, ERC20Permit, ERC20Votes, ERC20Vo
         return maxSupply;
     }
 
-    constructor() ERC20("Boba Token", "BOBA") ERC20Permit("Boba Token") {
+    constructor() ERC20("Habtor Token", "HABTOR") ERC20Permit("Habtor Token") {
          //mint maxSupply at genesis, allocated to deployer
         _mint(_msgSender(), maxSupply);
     }

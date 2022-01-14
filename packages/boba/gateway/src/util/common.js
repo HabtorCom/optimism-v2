@@ -27,9 +27,9 @@ const comparator = (a, b) => {
 }
 
 export const sortRawTokens = (tokens) => {
-    let start = tokens.filter((d) => [ 'ETH', 'BOBA', 'OMG' ].includes(d.tokenSymbol)).sort(comparator);
+    let start = tokens.filter((d) => [ 'ETH', 'HABTOR'].includes(d.tokenSymbol)).sort(comparator);
 
-    let last = tokens.filter((d) => ![ 'ETH', 'BOBA', 'OMG' ].includes(d.tokenSymbol)).sort(comparator);
+    let last = tokens.filter((d) => ![ 'ETH', 'HABTOR'].includes(d.tokenSymbol)).sort(comparator);
 
     return [ ...start, ...last ]
 }

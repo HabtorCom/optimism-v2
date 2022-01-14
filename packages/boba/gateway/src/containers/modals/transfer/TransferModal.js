@@ -129,7 +129,7 @@ function TransferModal ({ open, token, minHeight }) {
 
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
           <Input
-            placeholder='Recipient address on Boba (0x...)'
+            placeholder='Recipient address on Habtor (0x...)'
             value={recipient}
             onChange={i => setRecipient(i.target.value)}
             fullWidth
@@ -166,8 +166,8 @@ function TransferModal ({ open, token, minHeight }) {
 
         <Typography variant="body2" sx={{mt: 2, fontWeight: '700', color: 'red'}}>
           CAUTION: This function is only for transfers from one L2 wallet to another L2 wallet.
-          You cannot directly transfer funds from an L2 wallet to an L1 address. 
-          Your funds will be lost.  
+          You cannot directly transfer funds from an L2 wallet to an L1 address.
+          Your funds will be lost.
         </Typography>
 
       </Box>

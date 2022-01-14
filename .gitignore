@@ -25,6 +25,8 @@ packages/boba/gas-price-oracle/data
 *.swp
 
 .env
+.env.bscmainnet
+.env.bsctestnet
 *.log
 
 # boba_examples
@@ -55,3 +57,7 @@ packages/boba/gateway/public/env.js
 
 # api
 env-mainnet.yml
+
+#my working notes
+myworking-note.txt
+*deploy-testnet.txt

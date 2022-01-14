@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory, ethers } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import ProxyJson from '../artifacts/contracts/libraries/Lib_ResolvedDelegateProxy.sol/Lib_ResolvedDelegateProxy.json'
 import L1LiquidityPoolJson from '../artifacts/contracts/LP/L1LiquidityPool.sol/L1LiquidityPool.json'
@@ -119,12 +119,12 @@ const deployFn: DeployFunction = async (hre) => {
     'Proxy__L2LiquidityPool',
     Proxy__L2LiquidityPoolDeploymentSubmission
   )
-  await registerBobaAddress(
+  await registerHabtorAddress(
     addressManager,
     'Proxy__L1LiquidityPool',
     Proxy__L1LiquidityPool.address
   )
-  await registerBobaAddress(
+  await registerHabtorAddress(
     addressManager,
     'Proxy__L2LiquidityPool',
     Proxy__L2LiquidityPool.address

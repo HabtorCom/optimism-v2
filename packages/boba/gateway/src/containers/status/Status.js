@@ -34,8 +34,8 @@ function Status ({ className }) {
 
   let networkLabel = 'Local'
 
-  if(network === 'rinkeby') {
-    networkLabel = 'Rinkeby'
+  if(network === 'testnet') {
+    networkLabel = 'Testnet'
   } else if (network === 'mainnet') {
     networkLabel = 'Mainnet'
   }

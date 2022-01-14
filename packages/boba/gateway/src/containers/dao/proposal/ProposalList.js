@@ -64,14 +64,14 @@ function ProposalList() {
         <div className={styles.containerAction}>
             <p className={styles.listTitle}>Proposals</p>
             <Typography variant="body2" className={styles.helpTextLight}>
-                At least {proposalThreshold} BOBA are needed to create a new proposal
+                At least {proposalThreshold} HABTOR are needed to create a new proposal
             </Typography>
             <Button
                 type="primary"
                 variant="contained"
                 onClick={() => {
                     if(Number(votes) < Number(proposalThreshold)) {
-                        dispatch(openError(`Insufficient BOBA to create a new proposal. You need at least ${proposalThreshold} BOBA to create a new proposal.`))
+                        dispatch(openError(`Insufficient HABTOR to create a new proposal. You need at least ${proposalThreshold} HABTOR to create a new proposal.`))
                     } else {
                         dispatch(openModal('newProposalModal'))
                     }

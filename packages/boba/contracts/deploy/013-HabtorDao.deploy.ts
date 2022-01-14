@@ -2,7 +2,7 @@
 import { getContractFactory } from '@eth-optimism/contracts'
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory, utils, BigNumber } from 'ethers'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 // import CompJson from '../artifacts/contracts/DAO/Comp.sol/Comp.json'
 import GovernorBravoDelegateJson from '../artifacts/contracts/DAO/governance/GovernorBravoDelegate.sol/GovernorBravoDelegate.json'
@@ -50,7 +50,7 @@ const deployFn: DeployFunction = async (hre) => {
     governor_voting_delay = 172800 // 2 days
     governor_proposal_threshold = utils.parseEther('100000')
   } else {
-    // set config for local/rinkeby
+    // set config for local/testnet
     delay_before_execute_s = 0
     eta_delay_s = 0
     governor_voting_period = 259200 // 3 days in seconds
@@ -58,10 +58,10 @@ const deployFn: DeployFunction = async (hre) => {
     governor_proposal_threshold = utils.parseEther('50000')
   }
 
-  // get deployed BOBA L2
+  // get deployed HABTOR L2
 
-  const BobaL2 = await hre.deployments.getOrNull('TK_L2BOBA')
-  console.log(`L2_BOBA is located at: ${BobaL2.address}`)
+  const HabtorL2 = await hre.deployments.getOrNull('TK_L2HABTOR')
+  console.log(`L2_HABTOR is located at: ${HabtorL2.address}`)
 
   Factory__Timelock = new ContractFactory(
     TimelockJson.abi,
@@ -84,7 +84,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
 
   await hre.deployments.save('Timelock', TimelockDeploymentSubmission)
-  await registerBobaAddress( addressManager, 'Timelock', Timelock.address )
+  await registerHabtorAddress( addressManager, 'Timelock', Timelock.address )
 
   // deploy governorDelegate
   Factory__GovernorBravoDelegate = new ContractFactory(
@@ -105,7 +105,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
 
   await hre.deployments.save('GovernorBravoDelegate', GovernorBravoDelegateDeploymentSubmission)
-  await registerBobaAddress( addressManager, 'GovernorBravoDelegate', GovernorBravoDelegate.address )
+  await registerHabtorAddress( addressManager, 'GovernorBravoDelegate', GovernorBravoDelegate.address )
 
   // deploy GovernorBravoDelegator
   Factory__GovernorBravoDelegator = new ContractFactory(
@@ -116,7 +116,7 @@ const deployFn: DeployFunction = async (hre) => {
 
   GovernorBravoDelegator = await Factory__GovernorBravoDelegator.deploy(
     Timelock.address,
-    BobaL2.address,
+    HabtorL2.address,
     Timelock.address,
     GovernorBravoDelegate.address,
     governor_voting_period, // VOTING PERIOD - duration of the voting period in seconds
@@ -134,7 +134,7 @@ const deployFn: DeployFunction = async (hre) => {
   }
 
   await hre.deployments.save('GovernorBravoDelegator', GovernorBravoDelegatorDeploymentSubmission)
-  await registerBobaAddress( addressManager, 'GovernorBravoDelegator', GovernorBravoDelegator.address )
+  await registerHabtorAddress( addressManager, 'GovernorBravoDelegator', GovernorBravoDelegator.address )
 
   // set Dao in L2LP
   const Proxy__L2LiquidityPoolDeployment = await hre.deployments.getOrNull(
@@ -153,7 +153,7 @@ const deployFn: DeployFunction = async (hre) => {
   // set admin Timelock
   console.log('Queue setPendingAdmin...')
 
-  // set eta to be the current timestamp for local and rinkeby
+  // set eta to be the current timestamp for local and testnet
   const eta1 = (await getTimestamp(hre)) + eta_delay_s
 
   const setPendingAdminData = utils.defaultAbiCoder.encode( // the parameters for the setPendingAdmin function
@@ -178,7 +178,7 @@ const deployFn: DeployFunction = async (hre) => {
 
   console.log('Queue Initiate...')
   // call initiate() to complete setAdmin
-  // set eta to be the current timestamp for local and rinkeby
+  // set eta to be the current timestamp for local and testnet
   const eta2 = (await getTimestamp(hre)) + eta_delay_s
 
   const initiateData = utils.defaultAbiCoder.encode(
@@ -201,7 +201,7 @@ const deployFn: DeployFunction = async (hre) => {
   console.log(`Time transaction was made: ${await getTimestamp(hre)}`)
   console.log(`Time at which transaction can be executed: ${eta2}`)
 
-  // if it's local/rinkeby attempt to execute transactions
+  // if it's local/testnet attempt to execute transactions
   if (process.env.NETWORK !== 'mainnet') {
     console.log('Execute setPendingAdmin...')
     // Execute the transaction that will set the admin of Timelock to the GovernorBravoDelegator contract
@@ -244,6 +244,6 @@ const deployFn: DeployFunction = async (hre) => {
   }
 }
 
-deployFn.tags = ['DAO', 'BOBA']
+deployFn.tags = ['DAO', 'HABTOR']
 
 export default deployFn

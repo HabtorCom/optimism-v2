@@ -78,7 +78,7 @@ export const CardTag = styled(Card)(({ theme }) => ({
 }));
 
 export const CardContentTag = styled(CardContent)(({ theme }) => ({
-  clipPath: 'polygon(0 0, 93% 0, 100% 100%, 0% 100%)',
+  clipPath: 'polygon(0 0, 100% 0, 93% 100%, 0% 100%)',
   backgroundColor: theme.palette.background.secondary,
   borderRadius: '6px',
   padding: '24px 34px 24px 24px',
@@ -103,7 +103,7 @@ export const CardInfo = styled(Typography)`
 `;
 
 export const ContentGlass = styled(Box)(({ theme }) => ({
-  transform: 'rotateZ(350deg)',
+  // transform: 'rotateZ(350deg)',
   position: 'absolute',
   top: '-50px',
   right: '-2px',

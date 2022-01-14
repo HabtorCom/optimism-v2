@@ -2,7 +2,7 @@
 import { DeployFunction, DeploymentSubmission } from 'hardhat-deploy/dist/types'
 import { Contract, ContractFactory } from 'ethers'
 import { getContractFactory } from '@eth-optimism/contracts'
-import { registerBobaAddress } from './000-Messenger.deploy'
+import { registerHabtorAddress } from './000-Messenger.deploy'
 
 import L1NFTBridgeJson from '../artifacts/contracts/bridges/L1NFTBridge.sol/L1NFTBridge.json'
 import L2NFTBridgeJson from '../artifacts/contracts/bridges/L2NFTBridge.sol/L2NFTBridge.json'
@@ -42,7 +42,7 @@ const deployFn: DeployFunction = async (hre) => {
     abi: L1NFTBridgeJson.abi,
   }
 
-  await registerBobaAddress(addressManager, 'L1NFTBridge', L1NFTBridge.address)
+  await registerHabtorAddress(addressManager, 'L1NFTBridge', L1NFTBridge.address)
   await hre.deployments.save('L1NFTBridge', L1NFTBridgeDeploymentSubmission)
   console.log(`L1NFTBridge deployed to: ${L1NFTBridge.address}`)
 
@@ -54,7 +54,7 @@ const deployFn: DeployFunction = async (hre) => {
     address: L2NFTBridge.address,
     abi: L2NFTBridgeJson.abi,
   }
-  await registerBobaAddress(addressManager, 'L2NFTBridge', L2NFTBridge.address)
+  await registerHabtorAddress(addressManager, 'L2NFTBridge', L2NFTBridge.address)
   await hre.deployments.save('L2NFTBridge', L2NFTBridgeDeploymentSubmission)
   console.log(`L2NFTBridge deployed to: ${L2NFTBridge.address}`)
 }

@@ -19,7 +19,7 @@ export function selectWalletMethod () {
   }
 }
 
-//local, rinkeby, mainnet...
+//local, testnet, mainnet...
 export function selectNetwork () {
   return function (state) {
     return state.setup['masterConfig']

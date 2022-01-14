@@ -28,7 +28,7 @@ class Nft extends React.Component {
 
     super(props)
 
-    const { 
+    const {
       list,
       contracts
     } = this.props.nft
@@ -71,7 +71,7 @@ class Nft extends React.Component {
   addContract = event => {
     this.props.dispatch(addNFTContract( this.state.contractAddress ))
   }
-  
+
   render() {
 
     const {
@@ -94,7 +94,7 @@ class Nft extends React.Component {
                   variant="body2"
                   component="p"
                 >
-                  You are on Ethereum Mainnet. To use Boba NFTs, SWITCH to Boba
+                  You are on BSC Mainnet. To use Habtor NFTs, SWITCH to Habtor
                 </S.AlertText>
               </S.AlertInfo>
               <LayerSwitcher isButton={true} />
@@ -148,7 +148,7 @@ class Nft extends React.Component {
         <Grid item xs={12} sx={{marginTop: '20px', borderRadius: '4px', border: 'solid 1px rgba(255,255,255,0.2)', padding: '10px'}}>
 
           <Typography variant="h3" component="h3" sx={{fontWeight: "700", marginBottom: '20px'}}>Add NFT contracts</Typography>
-          
+
           {Object.keys(contracts).map((contract, index) => {
             return (
               <ListContract
@@ -158,8 +158,8 @@ class Nft extends React.Component {
           })}
 
           <Typography variant="body3" component="p" sx={{mt: 1, mb: 2, fontSize: '0.7em', marginTop: '20px', marginRight: '40px'}}>
-            To add an NFT contract, please add its address and click 'Add NFT contract'. You only have to do this once per NFT family. 
-            Once you have added the contract, it will take about 15 seconds to find your NFT(s). 
+            To add an NFT contract, please add its address and click 'Add NFT contract'. You only have to do this once per NFT family.
+            Once you have added the contract, it will take about 15 seconds to find your NFT(s).
           </Typography>
 
           <Input

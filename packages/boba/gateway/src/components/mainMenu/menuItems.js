@@ -35,12 +35,12 @@ export const menuItems = [
     title: "DAO",
     url: "/dao"
   },
-  {
-    key: 'Airdrop',
-    icon: "SwapIcon",
-    title: "Airdrop",
-    url: "/airdrop"
-  },
+  // {
+  //   key: 'Airdrop',
+  //   icon: "SwapIcon",
+  //   title: "Airdrop",
+  //   url: "/airdrop"
+  // },
   {
     key: 'Help',
     icon: "HelpIcon",

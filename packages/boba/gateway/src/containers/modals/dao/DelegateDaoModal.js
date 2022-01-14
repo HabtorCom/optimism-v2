@@ -78,11 +78,11 @@ function DelegateDaoModal({ open }) {
             maxWidth="md"
         >
             <Typography variant="h2" sx={{fontWeight: 700, mb: 2}}>
-                Delegate my BOBA votes
+                Delegate my HABTOR votes
             </Typography>
             <Box style={{border: '1px solid #5E6170', padding: '10px', margin: '10px', borderRadius: '4px', background: theme.palette.background.secondary}}>
                 <Typography variant="h3" sx={{mb: 1}}>
-                    Delegate my BOBA votes to myself
+                    Delegate my HABTOR votes to myself
                 </Typography>
                 <Typography variant="body3" style={{fontSize: '0.8em', lineHeight: '1.0em'}}>
                     My address:&nbsp;
@@ -97,7 +97,7 @@ function DelegateDaoModal({ open }) {
                         onClick={()=>{submitMe()}}
                         color='primary'
                         variant="contained"
-                        tooltip={loading ? "Your delegation is still pending. Please wait for confirmation." : "Click here to delegate BOBA voting power from one L2 address to another L2 address"}
+                        tooltip={loading ? "Your delegation is still pending. Please wait for confirmation." : "Click here to delegate HABTOR voting power from one L2 address to another L2 address"}
                         loading={loading}
                         triggerTime={new Date()}
                         fullWidth={isMobile}
@@ -109,7 +109,7 @@ function DelegateDaoModal({ open }) {
             </Box>
             <Box style={{border: '1px solid #5E6170', padding: '10px', margin: '10px', borderRadius: '4px', background: theme.palette.background.secondary}}>
                 <Typography variant="h3" sx={{mb: 1}}>
-                    Or, delegate my BOBA votes to someone else
+                    Or, delegate my HABTOR votes to someone else
                 </Typography>
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     <Input
@@ -124,7 +124,7 @@ function DelegateDaoModal({ open }) {
                         onClick={()=>{submit()}}
                         color='primary'
                         variant="contained"
-                        tooltip={loading ? "Your delegation is still pending. Please wait for confirmation." : "Click here to delegate BOBA voting power from one L2 address to another L2 address"}
+                        tooltip={loading ? "Your delegation is still pending. Please wait for confirmation." : "Click here to delegate HABTOR voting power from one L2 address to another L2 address"}
                         loading={loading}
                         disabled={disabled}
                         triggerTime={new Date()}

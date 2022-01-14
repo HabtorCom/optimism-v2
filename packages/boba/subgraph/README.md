@@ -1,4 +1,4 @@
-# Boba Network Bridges Subgraphs
+# Habtor Network Bridges Subgraphs
 
 These subgraphs index the **StandardBridge** contracts and **LiquidityPool** contracts.
 
@@ -14,7 +14,7 @@ npm install -g @graphprotocol/graph-cli
 
 ### L1 Subgraphs
 
-The deploy key is required to deploy subgraphs to **The Graph Node**. 
+The deploy key is required to deploy subgraphs to **The Graph Node**.
 
 ```bash
 graph auth  --studio $DEPLOY_KEY
@@ -27,7 +27,7 @@ graph deploy --studio boba-network # graph deploy --studio boba-network-rinkeby
 
 ### L2 Subgraphs
 
-The admin port is not public. 
+The admin port is not public.
 
 ```bash
 yarn install
@@ -70,4 +70,4 @@ yarn deploy:subgraph:mainnet
 | 8030     | Subgraph indexing status API              | /graphql                | https://graph.rinkeby.boba.network:8030                      | Public         |
 | 8040     | Prometheus metrics                        | /metrics                | https://graph.rinkeby.boba.network:8040                      | Public         |
 
-## 
+##
